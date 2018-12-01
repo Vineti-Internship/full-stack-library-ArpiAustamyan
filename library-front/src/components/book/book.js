@@ -46,7 +46,7 @@ render() {
   const isEditMode = this.props.book ? true : false;
 
   return(
-    <form onSubmit={(e) => addEditBook(this.state)}>
+    <form onSubmit={() => addEditBook(this.state)}>
       <div className="book">
         <div className="book-label">
           <div>

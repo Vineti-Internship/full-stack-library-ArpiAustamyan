@@ -9,7 +9,7 @@ import LogInForm from './components/log_in';
 
 class App extends Component {
   async addEditBook(data) {
-    const rawResponse = await fetch('https://localhost:3000', {
+    const rawResponse = await fetch('https://localhost:3000/book', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -20,6 +20,20 @@ class App extends Component {
 
     const content = await rawResponse.json();
   }
+
+  async signInAuthor(data) {
+    const rawResponse = await fetch('https://localhost:3000/author', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({data})
+    });
+
+    const content = await rawResponse.json();
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -31,7 +45,7 @@ class App extends Component {
           </div>
 
           <Route exact path='/books' render={() => <BookList />} />
-          <Route exact path='/signin' render={() => <SignInForm />} />
+          <Route exact path='/signin' render={() => <SignInForm {...{signInAuthor: this.signInAuthor}} />} />
           <Route exact path='/login' render={() => <LogInForm />} />
           <Route exact path='/book/:bookId' component={Book} />
           <Route exact path='/book' render={() => <Book />}/>
