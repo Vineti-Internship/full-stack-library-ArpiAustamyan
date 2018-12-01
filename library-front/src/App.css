@@ -20,6 +20,7 @@
 .App-link {
   color: #61dafb;
 }
+
 a{
   color:black;
   font: bold;
@@ -34,7 +35,7 @@ a{
  color:black;
 }
 
-.sign{
+.header{
  margin-left:1350px;
  margin-right: 40px;
  display: flex;
