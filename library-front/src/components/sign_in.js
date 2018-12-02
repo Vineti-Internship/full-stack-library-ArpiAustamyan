@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './signin.css';
 export default class SingIn extends React.Component{
   constructor() {
     super();
@@ -8,6 +8,8 @@ export default class SingIn extends React.Component{
       name: '',
       surname: '',
       birthyear: '',
+      email: '',
+      password: ''
     };
 }
 
@@ -19,10 +21,10 @@ changeState = e => {
 }
   render(){
     const {signInAuthor} = this.props;
-    const {name , surname , birthyear } = this.state;
+    const {name , surname , birthyear , email , password} = this.state;
 
     return(
-      <form onSubmit={() => signInAuthor(this.state)}>
+      <form onSubmit={(e) => signInAuthor(e, this.state)} className="signform">
       <div className="sing-in">
         <div className="sing-in-label">
           <div>
@@ -37,8 +39,16 @@ changeState = e => {
           <label>Born</label><br/>
           <input type ="text" name="birthyear" value={birthyear} onChange={this.changeState} /><br/>
         </div>
+        <div>
+          <label>Email</label><br/>
+          <input type ="text" name="email" value={email} onChange={this.changeState}/>
         </div>
-        <input type="submit" value="Create" />
+        <div>
+          <label>Password</label><br/>
+          <input type ="password" name="password" value={password} onChange={this.changeState}/>
+        </div>
+        </div>
+        <input type="submit" value="Create"  className="subbut"/>
       </div>
     </form>
     );
