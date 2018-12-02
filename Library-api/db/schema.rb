@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_29_062023) do
+ActiveRecord::Schema.define(version: 2018_12_02_144107) do
 
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.string "surname"
     t.integer "birthyear"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token"
+    t.string "password_confirmation", limit: 20
   end
 
   create_table "books", force: :cascade do |t|
@@ -28,10 +30,10 @@ ActiveRecord::Schema.define(version: 2018_11_29_062023) do
     t.string "genre"
     t.integer "rating"
     t.text "descrition"
-    t.integer "Author_id"
+    t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["Author_id"], name: "index_books_on_Author_id"
+    t.index ["author_id"], name: "index_books_on_author_id"
   end
 
 end

@@ -1,3 +1,4 @@
 class BookSerializer < ActiveModel::Serializer
-  attributes  :title, :year, :descriptin, :rating, :genre, :Author_id
+  belongs_to :author
+  attributes :id, :title, :year, :description, :rating, :genre, :author
 end

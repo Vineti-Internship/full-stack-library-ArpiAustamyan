@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :update, :destroy]
+  before_action :require_login, except: [:index, :show]
 
   # GET /books
   def index
@@ -16,6 +16,7 @@ class BooksController < ApplicationController
   # POST /books
   def create
     @book = Book.new(book_params)
+    @book.author = current_author
 
     if @book.save
       render json: @book, status: :created, location: @book
@@ -46,6 +47,6 @@ class BooksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def book_params
-      params.require(:book).permit(:title, :year, :Author)
+      params.require(:book).permit(:title, :year, :genre, :description, :rating)
     end
 end

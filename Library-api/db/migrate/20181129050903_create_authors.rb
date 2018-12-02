@@ -5,7 +5,7 @@ class CreateAuthors < ActiveRecord::Migration[5.2]
       t.string :surname
       t.integer :birthyear
       t.string :email
-      t.string :password
+      t.string :password_digest
 
       t.timestamps
     end

@@ -6,7 +6,7 @@ class CreateBooks < ActiveRecord::Migration[5.2]
       t.string :genre
       t.integer :rating
       t.text :descrition
-      t.references :Author, foreign_key: true
+      t.references :author, foreign_key: true
 
       t.timestamps
     end
