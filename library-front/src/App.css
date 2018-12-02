@@ -16,12 +16,15 @@ a{
   text-shadow: 2px 2px;
   font-size: 200%;
   color:black;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .nav{
   margin-left: 1300px;
   margin-top: -32px;
   margin-right: 32px;
+  padding-bottom: 40px;
   justify-content: space-between;
   display: flex;
 }
