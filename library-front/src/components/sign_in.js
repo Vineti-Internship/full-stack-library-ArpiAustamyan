@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './signin.css';
 export default class SingIn extends React.Component{
   constructor() {
@@ -21,7 +21,7 @@ changeState = e => {
 }
   render(){
     const {signInAuthor} = this.props;
-    const {name , surname , birthyear , email , password} = this.state;
+    const {name , surname , birthyear , email , password, password_confirmation} = this.state;
 
     return(
       <form onSubmit={(e) => signInAuthor(e, this.state)} className="signform">
@@ -46,6 +46,10 @@ changeState = e => {
         <div>
           <label>Password</label><br/>
           <input type ="password" name="password" value={password} onChange={this.changeState}/>
+        </div>
+        <div>
+          <label>Password Confirmation</label><br/>
+          <input type ="password" name="password_confirmation" value={password_confirmation} onChange={this.changeState}/>
         </div>
         </div>
         <input type="submit" value="Create"  className="subbut"/>
