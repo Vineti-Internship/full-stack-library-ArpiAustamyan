@@ -1,4 +1,4 @@
-import { Component, default as React } from 'react';
+import React from 'react';
 import './book.css';
 
 export default class Book extends React.Component {
