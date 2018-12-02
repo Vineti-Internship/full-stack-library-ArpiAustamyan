@@ -40,13 +40,15 @@ class App extends Component {
         <div className="App">
           <div className='header'>
             <Link  to='/books' className="link">Books</Link>
-            <Link  to='/signin'> SignIn</Link>
-            <Link to='/login'>LogIn</Link>
+            <div className="nav">
+              <Link  to='/signin'> SignIn</Link>
+              <Link to='/login'>LogIn</Link>
+            </div>
           </div>
 
           <Route exact path='/books' render={() => <BookList />} />
           <Route exact path='/signin' render={() => <SignInForm {...{signInAuthor: this.signInAuthor}} />} />
-          <Route exact path='/login' render={() => <LogInForm />} />
+          <Route exact path='/login' render={() => <LogInForm {...{logInAuthor: this.logInAuthor}}/>} />
           <Route exact path='/book/:bookId' component={Book} />
           <Route exact path='/book' render={() => <Book />}/>
           <Route exact path='/' render={() => <Redirect to='/book' />} />
