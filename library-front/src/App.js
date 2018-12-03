@@ -23,6 +23,7 @@ class App extends React.Component {
             <div className="nav">
               {!isAuth && <Link to='/signin'>Sign In</Link>}
               {!isAuth && <Link to='/login'>Log In</Link>}
+              {isAuth && <Link to='/book'>Create Book</Link>}
               {isAuth && <button onClick={logOut}>Log Out</button>}
             </div>
           </div>
@@ -32,7 +33,7 @@ class App extends React.Component {
           <Route exact path='/signin' render={() => isAuth ? <Redirect to='/books' /> : <SignInForm />} />
           <Route exact path='/login' render={() => isAuth ? <Redirect to='/books' /> : <LogInForm />} />
           <Route exact path='/book/:bookId' component={Book} />
-          <Route exact path='/book' render={() => <Book />} />
+          <Route exact path='/book' component={Book} />
           <Route exact path='/' render={() => <Redirect to='/books' />} />
         </div>
       </BrowserRouter>
