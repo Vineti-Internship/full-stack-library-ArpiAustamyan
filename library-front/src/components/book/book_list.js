@@ -26,7 +26,7 @@ class BookItem extends React.Component {
 
   render() {
     const { book: { id, title, year, genre, rating, description, author } } = this.props;
-    const {name, surname} = author;
+    const { name, surname } = author;
 
     return (
       <div>
@@ -53,9 +53,16 @@ class BookList extends React.Component {
   constructor() {
     super();
     this.state = {
-      books: null
+      books: null,
+      search: ''
     }
+
     this.getList = this.getList.bind(this);
+    this.changeState = this.changeState.bind(this);
+  }
+
+  componentDidMount() {
+    this.getList();
   }
 
   async getList() {
@@ -64,19 +71,36 @@ class BookList extends React.Component {
     this.setState({ books: allBooks });
   }
 
-  componentDidMount() {
-    this.getList();
+  changeState = e => {
+    const { value, name } = e.target;
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
-    const { books } = this.state;
+    const { books, search } = this.state;
+
+    const searchResult = search.length == 0 ?
+      books
+      :
+      books.filter(
+        (book) => {
+          return book.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        }
+      );
+
     return (
       <div className="book-list">
         {
           books &&
           <div>
+            <div>
+              <span>Search Books</span>
+              <input type="text" maxLength='10' name='search' onChange={this.changeState} value={search} />
+            </div>
             {
-              this.state.books.map(book => <BookItem {...{ book }} key={book.id} />)
+              searchResult.map(book => <BookItem {...{ book }} key={book.id} />)
             }
           </div>
         }

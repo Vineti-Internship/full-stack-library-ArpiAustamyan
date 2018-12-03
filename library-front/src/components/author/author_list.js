@@ -51,9 +51,15 @@ class AuthorList extends React.Component {
   constructor() {
     super();
     this.state = {
-      authors: null
+      authors: null,
+      search: ''
     }
     this.getList = this.getList.bind(this);
+    this.changeState = this.changeState.bind(this);
+  }
+
+  componentDidMount() {
+    this.getList();
   }
 
   async getList() {
@@ -62,19 +68,41 @@ class AuthorList extends React.Component {
     this.setState({ authors: allAuthors });
   }
 
-  componentDidMount() {
-    this.getList();
+  changeState = e => {
+    const { value, name } = e.target;
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
     const { authors } = this.state;
+    let { search } = this.state;
+    search = search.toLocaleLowerCase();
+
+    const searchResult = search.length === 0 ?
+      authors
+      :
+      authors.filter(
+        (author) => {
+          let isName = author.name ? author.name.toLowerCase().indexOf(search) !== -1 : false;
+          let isSurename = author.surename ? author.surename.toLowerCase().indexOf(search) !== -1 : false;
+
+          return isName || isSurename;
+        }
+      );
+
     return (
       <div className="author-list">
         {
           authors &&
           <div>
+            <div>
+              <span>Search Books</span>
+              <input type="text" maxLength='10' name='search' onChange={this.changeState} value={search} />
+            </div>
             {
-              this.state.authors.map(author => <AuthorItem {...{ author }} key={author.id} />)
+              searchResult.map(author => <AuthorItem {...{ author }} key={author.id} />)
             }
           </div>
         }
