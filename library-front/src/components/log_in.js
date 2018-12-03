@@ -5,9 +5,6 @@ export default class LogIn extends React.Component{
     super();
     
   this.state = {
-    name: '',
-    surname: '',
-    birthyear: '',
     email: '',
     password: ''
   };

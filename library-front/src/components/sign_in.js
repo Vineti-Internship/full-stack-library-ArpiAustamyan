@@ -52,7 +52,7 @@ changeState = e => {
           <input type ="password" name="password_confirmation" value={password_confirmation} onChange={this.changeState}/>
         </div>
         </div>
-        <input type="submit" value="Create"  className="subbut"/>
+        <input type="submit" value="Sign In"  className="subbut"/>
       </div>
     </form>
     );

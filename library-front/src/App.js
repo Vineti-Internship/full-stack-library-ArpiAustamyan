@@ -1,57 +1,44 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Redirect, Route, Link } from 'react-router-dom';
 import './App.css';
+import Auth from './helper/auth'
 
 import BookList from './components/book/book_list';
+import AuthorList from './components/author/author_list'
 import Book from './components/book/book';
 import SignInForm from './components/sign_in';
 import LogInForm from './components/log_in';
 
+import Helper from './helper/author_helper'
+
 class App extends Component {
-  async addEditBook(data) {
-    const rawResponse = await fetch('https://localhost:3000/book', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({data})
-    });
-
-    const content = await rawResponse.json();
-  }
-
-  async signInAuthor(data) {
-    const rawResponse = await fetch('https://localhost:3000/author', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({data})
-    });
-
-    const content = await rawResponse.json();
+  constructor() {
+    super();
   }
 
   render() {
+    const { isAuth, logOut } = this.props;
+
     return (
       <BrowserRouter>
         <div className="App">
           <div className='header'>
-            <Link  to='/books' className="link">Books</Link>
+            <Link to='/books' className="link">Books</Link>
+            <Link to='/authors' className="link">Authors</Link>
             <div className="nav">
-              <Link  to='/signin'> SignIn</Link>
-              <Link to='/login'>LogIn</Link>
+              {!isAuth && <Link to='/signin'>Sign In</Link>}
+              {!isAuth && <Link to='/login'>Log In</Link>}
+              {isAuth && <button onClick={() => logOut}>Log Out</button>}
             </div>
           </div>
 
           <Route exact path='/books' render={() => <BookList />} />
-          <Route exact path='/signin' render={() => <SignInForm {...{signInAuthor: this.signInAuthor}} />} />
-          <Route exact path='/login' render={() => <LogInForm {...{logInAuthor: this.logInAuthor}}/>} />
+          <Route exact path='/authors' render={() => <AuthorList />} />
+          <Route exact path='/signin' render={() => isAuth ? <Redirect to='/books' /> : <SignInForm />} />
+          <Route exact path='/login' render={() => isAuth ? <Redirect to='/books' /> : <LogInForm />} />
           <Route exact path='/book/:bookId' component={Book} />
-          <Route exact path='/book' render={() => <Book />}/>
-          <Route exact path='/' render={() => <Redirect to='/book' />} />
+          <Route exact path='/book' render={() => <Book />} />
+          <Route exact path='/' render={() => <Redirect to='/books' />} />
         </div>
       </BrowserRouter>
     );
