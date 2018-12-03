@@ -1,12 +1,20 @@
 import React from 'react';
-import Auth from '../helper/auth';
 import Api from '../helper/api';
+import Auth from '../helper/auth';
 
 export const AuthorContext = React.createContext();
 
-export class AuthorProvider extends React.Component {
+export class AuthorProvider extends React.Component { 
   constructor() {
     super();
+
+    this.isAuth = this.isAuth.bind(this);
+    this.signIn = this.signIn.bind(this);
+    this.logIn = this.logIn.bind(this);
+    this.logOut = this.logOut.bind(this);
+    this.getAuthor = this.getAuthor.bind(this);
+    this.getAllAuthors = this.getAllAuthors.bind(this);
+    this.checkPassword = this.checkPassword.bind(this);
   }
 
   state = {
@@ -20,7 +28,7 @@ export class AuthorProvider extends React.Component {
     this.setState({ isAuth: Auth.isAuthorAuthenticated() });
   }
 
-  signIn = async (data) => {
+  signIn = async (e, data) => {
     try {
       const res = await Api.post('/authors', data, 'author')
       const resJson = await res.json();
@@ -85,7 +93,7 @@ export class AuthorProvider extends React.Component {
   checkPassword = (password, password_confirmation) => {
     if (password.length < 8) {
       return "Password need to have more than 7 characters"
-    } else if (password != password_confirmation) {
+    } else if (password !== password_confirmation) {
       return "Password and password confirmation need to be the same"
     }
 

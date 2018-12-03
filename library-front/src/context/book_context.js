@@ -6,6 +6,13 @@ export const BookContext = React.createContext();
 export class BookProvider extends React.Component {
   constructor() {
     super();
+
+    this.addBook = this.addBook.bind(this);
+    this.getBook = this.getBook.bind(this);
+    this.updateBook = this.updateBook.bind(this);
+    this.removeBook = this.removeBook.bind(this);
+    this.getAllBooks = this.getAllBooks.bind(this);
+    this.getAuthorBooks = this.getAuthorBooks.bind(this);
   }
 
   state = {

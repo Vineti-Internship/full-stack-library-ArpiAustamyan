@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Redirect, Route, Link } from 'react-router-dom';
 import './App.css';
 
 import BookList from './components/book/book_list';
 import AuthorList from './components/author/author_list'
 import Book from './components/book/book';
-import SignInForm from './components/sign_in';
-import LogInForm from './components/log_in';
+import SignInForm from './components/sign_in/sign_in';
+import LogInForm from './components/log_in/log_in';
 
-class App extends Component {
-  constructor() {
-    super();
-  }
+class App extends React.Component {
 
   render() {
     const { isAuth, logOut } = this.props;
