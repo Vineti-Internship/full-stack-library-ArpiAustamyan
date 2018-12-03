@@ -51,7 +51,7 @@ class AuthorList extends React.Component {
   constructor() {
     super();
     this.state = {
-      author: null
+      authors: null
     }
     this.getList = this.getList.bind(this);
   }
