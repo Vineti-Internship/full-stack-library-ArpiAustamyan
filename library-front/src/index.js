@@ -10,8 +10,8 @@ ReactDOM.render(
   <BookProvider>
     <AuthorProvider>
       <AuthorContext.Consumer>
-        {({ logOut }) =>
-          <App {... { logOut }} />
+        {({ authenticated, logOut }) =>
+          <App {... { authenticated, logOut }} />
         }
       </AuthorContext.Consumer>
     </AuthorProvider>

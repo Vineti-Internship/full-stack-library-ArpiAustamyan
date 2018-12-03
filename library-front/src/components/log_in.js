@@ -1,6 +1,27 @@
 import React from 'react';
-import '../signin.css'
-export default class LogIn extends React.Component {
+import './signin.css';
+import { AuthorContext } from '../context/author_context';
+
+export default class LogInPage extends React.Component {
+  constructor(props) {
+    super();
+  }
+
+  render() {
+    return (
+      <AuthorContext.Consumer>
+        {
+          ({ logIn }) =>
+            <LogIn
+              {...this.props}
+              logIn={logIn}
+            />}
+      </AuthorContext.Consumer >
+    )
+  }
+};
+
+class LogIn extends React.Component {
   constructor() {
     super();
 
@@ -23,15 +44,12 @@ export default class LogIn extends React.Component {
 
   submit = async (e) => {
     e.preventDefault();
-
-    const { logIn, isAuth } = this.props;
-    const result = await logIn(this.state);
+    
+    const result = await this.props.logIn(this.state);
 
     if (!result) {
       this.setState({ isFailed: true, password: '' });
     }
-
-    await isAuth();
   }
 
   render() {

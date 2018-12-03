@@ -5,13 +5,14 @@ import './App.css';
 import BookList from './components/book/book_list';
 import AuthorList from './components/author/author_list'
 import Book from './components/book/book';
-import SignInForm from './components/sign_in/sign_in';
-import LogInForm from './components/log_in/log_in';
+import SignInForm from './components/sign_in';
+import LogInForm from './components/log_in';
 
 class App extends React.Component {
 
   render() {
-    const { isAuth, logOut } = this.props;
+    const { authenticated, logOut } = this.props;
+    const isAuth = authenticated();
 
     return (
       <BrowserRouter>
@@ -22,7 +23,7 @@ class App extends React.Component {
             <div className="nav">
               {!isAuth && <Link to='/signin'>Sign In</Link>}
               {!isAuth && <Link to='/login'>Log In</Link>}
-              {isAuth && <button onClick={() => logOut}>Log Out</button>}
+              {isAuth && <button onClick={logOut}>Log Out</button>}
             </div>
           </div>
 

@@ -1,52 +1,53 @@
-class AuthorsController < ApplicationController
-  before_action :require_login, except: [:index, :show, :create]
+class AuthorsController < ApiController
+  before_action :require_login, except: [:create, :index, :show]
 
-  # GET /authors
   def index
-    @authors = Author.all
+      authors = Author.all
 
-    render json: @authors
+      render json: authors
   end
 
-  # GET /authors/1
   def show
-    render json: @author
+      author = Author.find(params[:id])
+
+      render json: author
   end
 
-  # POST /authors
   def create
+      author = Author.create!(author_params)
 
-    @author = Author.new(author_params)
-
-    if @author.save
-      render json: {token: @author.token}
-    else
-      render json: @author.errors, status: :unprocessable_entity
-    end
+      render json: {token: author.token}
   end
 
-  # PATCH/PUT /authors/1
+  def profile
+      author = current_author #Author.find_by_auth_token!(request.headers[:token])
+
+      render json: author #{author:{username: author.username, email:author.email, name:author.name, id: author.id}, books:author_books}
+  end
+
   def update
-    if @author.update(author_params)
-      render json: @author
-    else
-      render json: @author.errors, status: :unprocessable_entity
-    end
+      author = current_author
+
+      if author.update(author_params)
+          render json: author
+      else
+          render json: author.errors, status: :unprocessable_entity
+      end
   end
 
-  # DELETE /authors/1
   def destroy
-    @author.destroy
+      author = current_author
+
+      if author.destroy
+          head(:ok)
+      else
+          head(:unprocessable_entity)
+      end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_author
-      @author = Author.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def author_params
-      params.require(:author).permit(:name, :surname, :birthyear, :email, :password, :password_confirmation)
-    end
+  def author_params
+      params.require(:author).permit(:username, :password, :password_confirmation, :name, :email)
+  end
 end

@@ -105,4 +105,4 @@ export class BookProvider extends React.Component {
       </BookContext.Provider>
     )
   }
-}
+};

@@ -1,7 +1,28 @@
 import React from 'react';
-import '../signin.css';
+import { AuthorContext } from '../context/author_context';
+import './signin.css';
 
-export default class SingIn extends React.Component {
+export default class SingInPage extends React.Component {
+  constructor(props) {
+    super();
+  }
+
+  render() {
+    return (
+      <AuthorContext.Consumer>
+        {
+          ({ signIn, checkPassword }) =>
+            <SingIn
+              {...this.props}
+              signIn={signIn}
+              checkPassword={checkPassword}
+            />}
+      </AuthorContext.Consumer >
+    )
+  }
+};
+
+class SingIn extends React.Component {
   constructor() {
     super();
 
@@ -25,14 +46,13 @@ export default class SingIn extends React.Component {
     });
   }
 
-   submit = async(e) => {
+  submit = async (e) => {
     e.preventDefault();
-
-    const { checkPassword, signIn, isAuth } = this.props;
+    const { checkPassword, signIn } = this.props;
     const { password, password_confirmation } = this.state;
     const checkResult = checkPassword(password, password_confirmation);
 
-    if (!checkResult) {
+    if (checkResult !== null) {
       this.setState({ password: '', password_confirmation: '', checkResult });
       return;
     }
@@ -41,8 +61,6 @@ export default class SingIn extends React.Component {
     if (!result) {
       this.setState({ password: '', password_confirmation: '', checkResult: 'Invalid credentials' });
     }
-
-    await isAuth();
   }
 
   render() {
@@ -84,3 +102,4 @@ export default class SingIn extends React.Component {
     );
   }
 }
+

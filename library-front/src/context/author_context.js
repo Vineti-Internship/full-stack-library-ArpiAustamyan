@@ -8,7 +8,7 @@ export class AuthorProvider extends React.Component {
   constructor() {
     super();
 
-    this.isAuth = this.isAuth.bind(this);
+    this.authenticated = this.authenticated.bind(this);
     this.signIn = this.signIn.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
@@ -24,11 +24,9 @@ export class AuthorProvider extends React.Component {
     author: null
   }
 
-  isAuth() {
-    this.setState({ isAuth: Auth.isAuthorAuthenticated() });
-  }
+  authenticated = () => Auth.isAuthenticated();
 
-  signIn = async (e, data) => {
+  signIn = async ( data) => {
     try {
       const res = await Api.post('/authors', data, 'author')
       const resJson = await res.json();
@@ -105,7 +103,7 @@ export class AuthorProvider extends React.Component {
       <AuthorContext.Provider value={
         {
           ...this.state,
-          isAuth: this.isAuth,
+          authenticated: this.authenticated,
           signIn: this.signIn,
           logIn: this.logIn,
           logOut: this.logOut,
