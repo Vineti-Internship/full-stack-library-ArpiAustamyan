@@ -4,7 +4,7 @@ import Auth from '../helper/auth';
 
 export const AuthorContext = React.createContext();
 
-export class AuthorProvider extends React.Component { 
+export class AuthorProvider extends React.Component {
   constructor() {
     super();
 
@@ -26,7 +26,7 @@ export class AuthorProvider extends React.Component {
 
   authenticated = () => Auth.isAuthenticated();
 
-  signIn = async ( data) => {
+  signIn = async (data) => {
     try {
       const res = await Api.post('/authors', data, 'author')
       const resJson = await res.json();
@@ -62,6 +62,7 @@ export class AuthorProvider extends React.Component {
     try {
       await Api.delete('/logout');
       Auth.deauthenticateToken();
+
       this.setState({ isAuth: Auth.isAuthenticated() });
     } catch (error) {
       console.log(`ERROR: ${error.message}`);
