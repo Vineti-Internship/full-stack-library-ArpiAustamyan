@@ -4,7 +4,21 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { BookProvider } from './contaxt/book_contaxt';
+import { AuthorProvider, AuthorContext } from './contaxt/author_contaxt'
+
+ReactDOM.render(
+  <BookProvider>
+    <AuthorProvider>
+      <AuthorContext.Consumer>
+        {
+          ({ logout }) =>
+            <App {... { logout }} />
+        }
+      </AuthorContext.Consumer>
+    </AuthorProvider>
+  </BookProvider>,
+  document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

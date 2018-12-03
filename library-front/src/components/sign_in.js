@@ -1,6 +1,6 @@
 import React from 'react';
 import './signin.css';
-export default class SingIn extends React.Component{
+export default class SingIn extends React.Component {
   constructor() {
     super();
 

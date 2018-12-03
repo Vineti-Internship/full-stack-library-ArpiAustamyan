@@ -1,6 +1,6 @@
 import React from 'react';
-import Auth from '../Auth/Auth';
-import Api from '../helpers/Api';
+import Auth from '../helper/auth';
+import Api from '../helper/api';
 
 export const AuthorContext = React.createContext();
 
